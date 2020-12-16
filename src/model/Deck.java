@@ -10,6 +10,8 @@ public class Deck {
 	final int maxCards;
 	private ArrayList <Card> deck;
 	private Random random = new Random();
+	private Card topCard;
+	private Card lastCard;
 
 	public Deck(int number) {
 		if (number < 2 || number > 6)
@@ -30,8 +32,6 @@ public class Deck {
 			setEmptyDeck();
 	}
 	
-
-
 	public int getNumberOfCards() {
 		return deck.size();
 	}
@@ -87,6 +87,8 @@ public class Deck {
 	}
 	
 	public ArrayList<Deck> splitDeck(int n){
+		if (n < 2 || n > 4)
+			throw new CardException("Split too large");
 		ArrayList<Deck> split = new ArrayList<Deck>();
 		for (int i = 0; i < n; i++) {
 			split.add(new Deck(numberOfDecks, true));
@@ -100,6 +102,8 @@ public class Deck {
 	}
 
 	public boolean equals(Object d) {
+		if (!(d instanceof Deck))
+			return false;
 		if (((Deck) d).getNumberOfCards() != deck.size())
 			return false;
 		for (int i = 0; i < deck.size(); ++i) {
@@ -109,9 +113,26 @@ public class Deck {
 		return true;			
 	}
 	
-	public void printCardValues() {
-		for (int i = 0; i < deck.size(); i++)
-			System.out.println(deck.get(i).getValue());
+	public void setTopCard(Card c) {
+		topCard = c;		
+	}
+	
+	public void setLastCard(Card c) {
+		lastCard = c;
+	}
+
+	public Card getTopCard() {
+		return topCard;
+	}
+	
+	public Card getLastCard() {
+		return lastCard;
+	}
+	
+	public Boolean isSnap() {
+		if(topCard != null && lastCard != null)
+			return topCard.equals(lastCard);
+		return false;
 	}
 
 }

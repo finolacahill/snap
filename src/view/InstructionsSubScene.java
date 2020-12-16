@@ -14,8 +14,7 @@ public class InstructionsSubScene extends SnapSubScene {
 		hidden = true;
 
 	}
-	@Override
-	protected void initialiseBody() {
+	private void initialiseBody() {
 		this.getPane().getChildren().add(title);
 		this.getPane().getChildren().add(text);
 		positionNode(title, 110, 40);

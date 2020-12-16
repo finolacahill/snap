@@ -13,8 +13,8 @@ public class EndSubScene extends SnapSubScene {
 		setText(s);
 		initialiseBody();
 	}
-	@Override
-	protected void initialiseBody() {
+
+	private void initialiseBody() {
 		image = new ImageView("resources/end.png");
 		image.setFitHeight(120);
 		image.setFitWidth(120);

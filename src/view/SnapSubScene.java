@@ -57,13 +57,13 @@ public abstract class SnapSubScene extends SubScene{
 		return (AnchorPane) this.getRoot();
 	}
 	
-	public Text makeText(String s, int size) {
+	protected Text makeText(String s, int size) {
 		Text t = new Text(s);
 		setToFont(t, size);
 		return t;
 	}
 	
-	private void setToFont(Text t, int size) {
+	protected void setToFont(Text t, int size) {
 		try {
 			 t.setFont(Font.loadFont(new FileInputStream(new File(InfoLabel.FONT_PATH)), size));
 		} catch (FileNotFoundException e) {
@@ -71,7 +71,7 @@ public abstract class SnapSubScene extends SubScene{
 			}
 	}
 	
-	public void positionNode(Node object, int x, int y) {
+	protected void positionNode(Node object, int x, int y) {
 		object.setLayoutX(x);
 		object.setLayoutY(y);
 	}
@@ -90,6 +90,4 @@ public abstract class SnapSubScene extends SubScene{
 		}
 		return s;
 	}
-	
-	abstract protected void initialiseBody();
 }

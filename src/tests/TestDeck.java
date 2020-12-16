@@ -48,6 +48,15 @@ class TestDeck {
 		assertEquals(0, deck.getNumberOfCards());
 		deck = new Deck(2, false);
 		assertEquals(104, deck.getNumberOfCards());
+		try {
+			deck = new Deck(1, false);
+			fail("deck too small");
+		} catch(CardException ex) {};
+		try {
+			deck = new Deck(7, false);
+			fail("deck too big");
+		} catch(CardException ex) {};
+		
 	}
 
 	@Test
@@ -211,6 +220,21 @@ class TestDeck {
 
 	}
 	
+	@Test
+	void testWrongSplit(){
+		Deck deck = new Deck(2);
+		try {
+			deck.splitDeck(105);
+			fail("Split too big");
+		} catch(CardException ex) {};
+		try {
+			deck.splitDeck(0);
+			fail("Split too big");
+		} catch(CardException ex) {};
+	}
+	
+	@SuppressWarnings("unlikely-arg-type")
+	@Test
 	void testDeckEquals() {
 		Deck deck1 = new Deck(2);
 		Deck deck2 = new Deck(2);
@@ -225,7 +249,48 @@ class TestDeck {
 		deck2.addCard(c);
 		assertTrue(deck1.equals(deck2));
 		deck2.popTopCard();
-		assertFalse(deck2.equals(deck1));		
+		assertFalse(deck2.equals(deck1));
+		assertFalse(deck2.equals(c));
+	}
+	
+	@Test
+	void testTopCard() {
+		Card a = new Card(1);
+		Card b = new Card(2);
+		deck = new Deck(2);
+		assertEquals(null, deck.getTopCard());
+		deck.setTopCard(a);
+		assertFalse(deck.getTopCard().equals(b));
+		assertTrue(deck.getTopCard().equals(a));
+		assertEquals(deck.popTopCard(), a);
+	}
+	
+	@Test
+	void testLastCard() {
+		Card a = new Card(1);
+		Card b = new Card(2);
+		deck = new Deck(2);
+		assertEquals(null, deck.getLastCard());
+		deck.setLastCard(a);
+		assertFalse(deck.getLastCard().equals(b));
+		assertTrue(deck.getLastCard().equals(a));
+	}
+	
+	@Test void testSnap() {
+		Card a = new Card(1);
+		Card b = new Card(2);
+		deck = new Deck(2);
+		assertFalse(deck.isSnap());
+		deck.setTopCard(a);
+		assertFalse(deck.isSnap());
+		deck.setTopCard(null);
+		deck.setLastCard(a);
+		assertFalse(deck.isSnap());
+		deck.setTopCard(b);
+		assertFalse(deck.isSnap());
+		deck.setTopCard(a);
+		assertTrue(deck.isSnap());
+		
 	}
 }
 

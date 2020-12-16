@@ -11,8 +11,8 @@ public class HelpSubScene extends SnapSubScene {
 		setText();
 		initialiseBody();
 	}
-	@Override
-	protected void initialiseBody() {
+
+	private void initialiseBody() {
 		this.getPane().getChildren().add(title);
 		this.getPane().getChildren().add(text);
 		positionNode(title, 180, 40);

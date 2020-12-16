@@ -16,7 +16,7 @@ public class Card{
 	}
 	
 	public boolean equals(Object c) {
-		return (((Card) c).getValue() % 11 == value % 11);
+		return (((Card) c).getValue() % 13 == value % 13);
 	}
 	
 }

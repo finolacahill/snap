@@ -22,19 +22,26 @@ public class SnapCheckBox extends VBox{
 		if (n < 2 || n > 6)
 			throw new GameException("number is out of range");
 		number = n;
-		boxImage = new ImageView(emptyBox);
-		numberImage = new ImageView(numberImages + Integer.toString(n) + ".png");
 		isChosen = false;
-		numberImage.setFitHeight(20);
-		numberImage.setFitWidth(25);
-		boxImage.setFitHeight(20);
-		boxImage.setFitWidth(25);
+		initialiseNumberImage();
+		initialiseBoxImage();
+	}
+	
+	private void initialiseNumberImage() {
 		this.setAlignment(Pos.CENTER);
 		this.setSpacing(10);
-		this.getChildren().add(boxImage);
+		numberImage = new ImageView(numberImages + Integer.toString(number) + ".png");
+		numberImage.setFitHeight(20);
+		numberImage.setFitWidth(25);
 		this.getChildren().add(numberImage);
 	}
 	
+	private void initialiseBoxImage() {
+		boxImage = new ImageView(emptyBox);
+		boxImage.setFitHeight(20);
+		boxImage.setFitWidth(25);
+		this.getChildren().add(boxImage);
+	}
 
 	public int getNumber() {
 		return number;

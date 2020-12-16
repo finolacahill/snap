@@ -10,33 +10,37 @@ public class StartSubScene extends SnapSubScene {
 	private ArrayList<SnapCheckBox> deckBoxes;
 	
 	public StartSubScene() {
-		initialiseBody();
+		createPlayerNumberChooser();
+		createDeckChooser();
+		createPlayButton();
 	}
 	
-	
-	protected void initialiseBody() {
-
-		InfoLabel deckLabel = new InfoLabel("HOW MANY DECKS OF CARDS?", 300, 40);
+	private void createPlayerNumberChooser() {
 		InfoLabel playerLabel = new InfoLabel("HOW MANY PLAYERS?", 300, 40);
-		playButton = new SnapButton("PLAY");
 		playerBoxes = new ArrayList<SnapCheckBox>();
-		deckBoxes = new ArrayList<SnapCheckBox>();
-		HBox chooseDeck = createQuantityPicker(2, 6, deckBoxes);
 		HBox choosePlayers = createQuantityPicker(2, 4, playerBoxes);
 		positionNode(choosePlayers, 115, 120);
-		positionNode(chooseDeck, 30, 270);
-		positionNode(playButton, 125, 350);
-		positionNode(deckLabel, 60, 220);
 		positionNode(playerLabel, 60, 60);
-	//
-		this.getPane().getChildren().add(deckLabel);
 		this.getPane().getChildren().add(playerLabel);
 		this.getPane().getChildren().add(choosePlayers);
+	}
+
+	private void createDeckChooser() {
+		deckBoxes = new ArrayList<SnapCheckBox>();
+		InfoLabel deckLabel = new InfoLabel("HOW MANY DECKS OF CARDS?", 300, 40);
+		HBox chooseDeck = createQuantityPicker(2, 6, deckBoxes);
+		positionNode(chooseDeck, 30, 270);
+		positionNode(deckLabel, 60, 220);
+		this.getPane().getChildren().add(deckLabel);
 		this.getPane().getChildren().add(chooseDeck);
+
+	}
+	private void createPlayButton() {
+		playButton = new SnapButton("PLAY");
+		positionNode(playButton, 125, 350);
 		this.getPane().getChildren().add(playButton);
 	}
-	
-	
+
 	protected HBox createQuantityPicker(int min, int max, ArrayList<SnapCheckBox> boxes) {
 		HBox frame = new HBox();
 		frame.setSpacing(60);
@@ -44,7 +48,6 @@ public class StartSubScene extends SnapSubScene {
 			SnapCheckBox box = new SnapCheckBox(i);
 		    boxes.add(box);
 			frame.getChildren().add(box);
-
 		}
 		return frame;
 	}

@@ -13,15 +13,12 @@ public class SnapButton extends Button {
 	private final String FONT_PATH = "../Snap/src/resources/kenvector_future.ttf";
 	private final String BUTTON_PRESSED_STYLE = "-fx-background-image: url('./resources/green_button03.png')";
 	private final String BUTTON_FREE_STYLE = "-fx-background-image: url('./resources/green_button02.png')";
+	
 	private int width = 190;
 	private int height = 49;
+	
 	public SnapButton(String text) {
-		setText(text);
-		setButtonFont();
-		setPrefWidth(width);
-		setPrefHeight(height);
-		setStyle(BUTTON_FREE_STYLE);
-		initializeButtonListeners();
+		createButton(text);
 	}
 	
 	public SnapButton(String text, int w, int h) {
@@ -29,14 +26,19 @@ public class SnapButton extends Button {
 			throw new IllegalArgumentException("Width/height must be positive");
 		width = w;
 		height = h;
+		createButton(text);
+
+	}
+	
+	private void createButton(String text) {
 		setText(text);
 		setButtonFont();
 		setPrefWidth(width);
 		setPrefHeight(height);
 		setStyle(BUTTON_FREE_STYLE);
-		initializeButtonListeners();
+		initializeButtonListenersStyle();
 	}
-	
+
 	private void setButtonFont() {
 		try {
 		setFont(Font.loadFont(new FileInputStream(FONT_PATH), height/3));
@@ -57,7 +59,7 @@ public class SnapButton extends Button {
 		setLayoutY(getLayoutY() - 4);
 	}
 	
-	private void initializeButtonListeners() {
+	private void initializeButtonListenersStyle() {
 		
 		setOnMousePressed(event ->{
 			if(event.getButton().equals(MouseButton.PRIMARY)) {

@@ -20,19 +20,28 @@ public class InfoLabel extends Label {
 	public final static String BACKGROUND_IMAGE = "resources/green_button13.png";
 	
 	public InfoLabel(String text, int w, int h) {
-		if (w < 0 || h < 0)
+		if(!(checkDimensions(w,h)))
 			throw new IllegalArgumentException("Width and height must be positive");
-		setPrefWidth(w);
-		setPrefHeight(h);
+		createButton(w, h);
+		addText(text);
+	}
+	
+	private void addText(String text) {
 		setText(text);
-		//setPadding(new Insets(40,40,40,40));
 		setWrapText(true);
 		setAlignment(Pos.CENTER);
-		setLabelFont();
-		
-		
+		setLabelFont();		
+	}
+	
+	private void createButton(int w, int h) {
+		setPrefWidth(w);
+		setPrefHeight(h);
 		BackgroundImage backgroundImage = new BackgroundImage(new Image(BACKGROUND_IMAGE, w, h, false, true), BackgroundRepeat.NO_REPEAT,  BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, null);
 		setBackground(new Background(backgroundImage));
+	}
+
+	private boolean checkDimensions(int w, int h) {
+		return (w > 0 && h > 0);
 	}
 
 	private void setLabelFont() {

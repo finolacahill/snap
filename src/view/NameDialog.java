@@ -15,14 +15,9 @@ public class NameDialog {
 		nameList = new ArrayList<String>();
 	}
 	
-	//Code adapted from:
-	//https://code.makery.ch/blog/javafx-dialogs-official/
+	//Code adapted from: https://code.makery.ch/blog/javafx-dialogs-official/
 	private void getName(int id, boolean error){
-	TextInputDialog dialog = new TextInputDialog("walter");
-	if (error == true)
-		nameErrorAlert();
-	dialog.setHeaderText("Player " + id + " enter your name");
-	dialog.setContentText("Name...");
+	TextInputDialog dialog = createDialogWindow(id, error);
 	Optional<String> result = dialog.showAndWait();
 	if (result.isPresent() && validName(result.get())){
 		nameList.add(result.get());
@@ -32,6 +27,15 @@ public class NameDialog {
 	}
 	else
 		getName(id, true);
+	}
+	
+	private TextInputDialog createDialogWindow(int id, boolean error) {
+		TextInputDialog dialog = new TextInputDialog("walter");
+		if (error == true)
+			nameErrorAlert();
+		dialog.setHeaderText("Player " + id + " enter your name");
+		dialog.setContentText("Name...");
+		return dialog;
 	}
 	
 	private void nameErrorAlert() {

@@ -2,73 +2,55 @@ package model;
 
 import java.util.ArrayList;
 
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.StackPane;
-import javafx.scene.text.Text;
 
 public class Game {
 	private ArrayList<Player> players;
-	private Text pileCount;
 	private Deck pile;
-	private int turn;
-	private Card lastCard;
-	private Card topCard;
-	private StackPane emptyCard;
 	private int numberOfPlayers;
+	private int turn;
 	private Player winner;
 	private boolean gameOver;
 	private ScoreCard scoreCard;
 	
-	public Game(ArrayList<Player> players, int decks) {
-		if (players == null || players.size() < 2 || players.size() > 4)
-			throw new GameException("Must have betweeen 2-4 players");
-		if (decks < 2 || decks > 6)
-			throw new GameException("Can use between 2 and 6 decks");
-		this.players = players;
+	public Game(ArrayList<String> names, int decks) {
+		if(!(checkInput(names, decks)))
+			throw new GameException("Number of players or decks out of range");
+		initialisePlayers(names);
 		pile = new Deck(decks);
 		turn = 0;
 		numberOfPlayers = players.size();
 		assignCards();
 		gameOver = false;
-		makeEmptyCard();
 		scoreCard = new ScoreCard();
 
+	}
+	
+	public Player getPlayer(int id) {
+		return players.get(id);
+	}
+	
+	public ArrayList<Player> getPlayers(){
+		return players;
+	}
+	
+	private void initialisePlayers(ArrayList<String> names) {
+		players = new ArrayList<Player>();
+		int i = 1;
+		for (String name: names) {
+			players.add(new Player(i, name));
+			++i;
+		}
+	}
+	
+	private boolean checkInput(ArrayList<String> names, int decks){
+		return (names != null && names.size() >= 2 && names.size() <= 4
+				&& decks >= 2 && decks <= 6);
 	}
 	
 	public ScoreCard getScoreCard() {
 		return scoreCard;
 	}
-	
-	private void updatePileCount() {
-		pileCount = new Text("PILE CONTAINS:\n" + pile.getNumberOfCards() + " CARDS!");
-		StackPane.setAlignment(pileCount, Pos.BOTTOM_CENTER);
-		StackPane.setMargin(pileCount, new Insets(8,8,8,8));
-		pileCount.setX(130);
-		pileCount.setY(30);
-	}
-	
-	private void makeEmptyCard() {
-		emptyCard = new StackPane();
-		ImageView cardImage = new ImageView("resources/cards/empty.png");
-		cardImage.setFitHeight(250);
-		cardImage.setFitWidth(150);
-		emptyCard.setAlignment(Pos.CENTER);
-		emptyCard.setLayoutX(130);
-		emptyCard.setLayoutY(170);
-		emptyCard.getChildren().add(cardImage);
-	}
-
-	public StackPane getEmptyCard() {
-		if (pileCount != null)
-			emptyCard.getChildren().remove(pileCount);
-		updatePileCount();
-		emptyCard.getChildren().add(pileCount);
 		
-		return emptyCard;
-	}
-	
 	public int getNumberOfPlayers() {
 		return numberOfPlayers;
 	}
@@ -129,7 +111,6 @@ public class Game {
 		Player lastAlive = null;
 		for (Player p: players) {
 			if (!p.getHasLost()) {
-				System.out.println("Checking " + p.getName());
 				if (p.getDeck().getNumberOfCards() > 0) {
 					lastAlive = p;
 					++alive;
@@ -146,10 +127,10 @@ public class Game {
 	}
 
 	public void turn() {
-		lastCard = topCard;
+		pile.setLastCard(pile.getTopCard());
 		try{
-			topCard = players.get(turn).getDeck().popTopCard();
-			pile.addCard(topCard);
+			pile.setTopCard(players.get(turn).getDeck().popTopCard());
+			pile.addCard(pile.getTopCard());
 			checkGameOver();
 			setTurn();
 		} catch (NullPointerException ex) {
@@ -158,28 +139,28 @@ public class Game {
 	}
 	
 	public void setTopCard(Card c) {
-		topCard = c;
+		pile.setTopCard(c);
 		
 	}
 	
 	public void setLastCard(Card c) {
-		lastCard = c;
+		pile.setLastCard(c);
 	}
 
 	public Card getTopCard() {
-		return topCard;
+		return pile.getTopCard();
 	}
 	
 	public Card getLastCard() {
-		return lastCard;
+		return pile.getLastCard();
 	}
 	
 	private void givePile(Player p) {
 		pile.shuffle();
 		while(pile.getNumberOfCards() > 0)
 			p.getDeck().addCard(pile.popTopCard());
-		lastCard = null;
-		topCard = null;
+		pile.setLastCard(null);
+		pile.setTopCard(null);
 	}
 	
 	private void distributePile(Player skip) {
@@ -189,13 +170,13 @@ public class Game {
 					players.get(i).getDeck().addCard(pile.popTopCard());
 			}
 		}
-		lastCard = null;
-		topCard = null;		
+		pile.setLastCard(null);
+		pile.setTopCard(null);		
 	}
 
 	public boolean snap(Player p) {
-		if (lastCard != null) {
-			if (topCard.equals(lastCard)){
+		if (pile.getLastCard() != null) {
+			if (pile.isSnap()){
 				givePile(p);
 				System.out.println(p.getName() + " wins Snap and has cards: "+ p.getDeck().getNumberOfCards());
 				System.out.println(p.getName() + " has lost is " + p.getHasLost());
@@ -216,12 +197,5 @@ public class Game {
 
 		}
 	}
-	
-	
-	
-//	public static void main(String [] args) {
-//		Game game = new Game();
-//	
-//	}
 	
 }

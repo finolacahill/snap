@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+//import view.SnapSubScene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
@@ -12,18 +13,24 @@ import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 
 public class MenuView {
+	
 	private CreditsSubScene credits;
 	private ScoreSubScene scores;
 	private HelpSubScene help;
 	private StartSubScene start;
+	private SnapSubScene currentScene;
+
 	private SnapButton creditButton;
 	private SnapButton scoreButton;
 	private SnapButton helpButton;
 	private SnapButton exitButton;
 	private SnapButton startButton;
+	
 	private AnchorPane mainPane;
+	
 	private int  MENU_BUTTONS_START_X = 550;
 	private int MENU_BUTTONS_START_Y = 50;
+	
 	List<SnapButton> menuButtons;
 	HashMap<SnapButton, SnapSubScene> buttonScenePair;
 
@@ -95,4 +102,14 @@ public class MenuView {
 		return start;
 	}
 	
+	public ScoreSubScene getScoreScene() {
+		return scores;
+	}
+	
+	public void showSubScene(SnapSubScene subScene) {
+		if(currentScene != null && currentScene != subScene)
+				currentScene.moveSceneOut();
+		subScene.moveSceneIn();
+		currentScene = subScene;
+	}
 }

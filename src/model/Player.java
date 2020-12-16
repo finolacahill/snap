@@ -3,8 +3,6 @@ package model;
 
 import javafx.scene.input.KeyCode;
 
-
-
 public class Player {
 	
 	private String name;
@@ -15,10 +13,8 @@ public class Player {
 	
 
 	public Player(int i, String name) {
-		if (i < 1 || i > 4)
-			throw new GameException("Invalid playd id");
-		if (isEmptyName(name) || name.length() > 20)
-			throw new GameException("Name must contain 1-20 characters.");
+		if (!(checkInput(i, name)))
+			throw new GameException("Player name or id is invalid.");
 		id = i;
 		this.name = name;
 
@@ -26,6 +22,11 @@ public class Player {
 		setKeyCode();
 
 	}
+	
+	private Boolean checkInput(int id, String name) {
+		return (id >= 1 && id <= 4 && !isEmptyName(name) && name.length()<= 14);
+	}
+
 	public boolean getHasLost() {
 		return hasLost;
 	}
@@ -48,8 +49,6 @@ public class Player {
 	public int getId() {
 		return id;
 	}
-	
-
 
 	public Deck getDeck() {
 		return deck;

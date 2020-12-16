@@ -6,22 +6,23 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import model.GameException;
+import model.ScoreCard;
 import view.MenuView;
 import view.SnapButton;
 import view.SnapCheckBox;
-import view.SnapSubScene;
 
 public class MenuController {
 	
 	private static final int HEIGHT = 600;
 	private static final int WIDTH = 800;
-	private SnapSubScene currentScene;
 	private MenuView menu;
 	
 	int[] inputVariables = {-1,-1};
 	private AnchorPane mainPane;
 	private Scene mainScene;
 	private Stage mainStage;
+	private ScoreCard scoreCard;
 
 	
 	public MenuController() {
@@ -31,10 +32,10 @@ public class MenuController {
 		mainStage.setScene(mainScene);
 	    mainStage.setResizable(false);
 	    menu = new MenuView(mainPane);
+	    scoreCard = new ScoreCard();
 	    createButtonListeners();
 		addStartListeners();
-
-
+		fetchScores();
 	}
 	
 	public Stage getMainStage() {
@@ -44,7 +45,7 @@ public class MenuController {
 	private void createButtonListeners() {
 		for (SnapButton button : menu.getButtonScenePair().keySet()) {
 			button.setOnAction(event -> {
-				showSubScene(menu.getButtonScenePair().get(button));
+				menu.showSubScene(menu.getButtonScenePair().get(button));
 			});
 		}
 		menu.getExitButton().setOnAction(event ->{
@@ -58,6 +59,9 @@ public class MenuController {
 		addBoxListener(menu.getStartScene().getPlayerBoxes(), 0);
 	}
 
+	private void fetchScores() {
+		menu.getScoreScene().updateScores(scoreCard.readScore());
+	}
 
 	private void addBoxListener(ArrayList<SnapCheckBox> boxes, int i) {
 		for (SnapCheckBox box: boxes) {
@@ -75,21 +79,22 @@ public class MenuController {
 		return (inputEntered());
 	}
 
+	private boolean inputEntered() {
+		return(inputVariables[0] != -1 && inputVariables[1] != -1);
+	}
+
 	private void addPlayListener() {
 		menu.getStartScene().getPlayButton().setOnAction(event ->{
 			if (getInput()){
 				try{
 					GameViewController game = new GameViewController(inputVariables);
 					game.createNewGame(getMainStage());
-				}catch (Exception ex) {};
+				}catch (GameException ex) {
+				};
 			} else
 				missingInputAlert();
 		});
 		
-	}
-	
-	private boolean inputEntered() {
-		return(inputVariables[0] != -1 && inputVariables[1] != -1);
 	}
 	
 	private void missingInputAlert() {
@@ -99,12 +104,7 @@ public class MenuController {
 		alert.showAndWait();
 	}
 		
-	private void showSubScene(SnapSubScene subScene) {
-		if(currentScene != null && currentScene != subScene)
-				currentScene.moveSceneOut();
-		subScene.moveSceneIn();
-		currentScene = subScene;
-	}
+
 
 	
 	

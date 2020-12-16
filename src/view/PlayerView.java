@@ -9,7 +9,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import model.Player;
 
 public class PlayerView {
 	private int displayNumber;
@@ -21,9 +20,9 @@ public class PlayerView {
 	private ArrayList<int[]> corners;
 
 	
-	public PlayerView(Player p) {
-		id = p.getId();
-		name = p.getName();
+	public PlayerView(int id, String name) {
+		this.id = id;
+		this.name = name;
 		setCorners();
 		setTurn();
 		initialiseDisplay();

@@ -2,36 +2,34 @@ package view;
 
 import javafx.scene.control.ScrollPane;
 import javafx.scene.text.Text;
-import model.ScoreCard;
 
 public class ScoreSubScene extends SnapSubScene {
 	private Text title;
 	private Text text;
-	private ScoreCard scoreCard;
 	private ScrollPane scorePane;
+	private String scores;
 	
 	public ScoreSubScene() {
-		initialiseBody();
+		initiaiseScorePane();
+		setTitle();
+		initialiseScoreCard();
+		scores = new String("No scores found!");
+		setText();
 	}
 
-	@Override
-	protected void initialiseBody() {
-		scoreCard = new ScoreCard();
-		setTitle();
-		setText();
-		initiaiseScorePane();
+
+	private void initialiseScoreCard() {
 		this.getPane().getChildren().add(title);
 		this.getPane().getChildren().add(scorePane);
 		positionNode(title, 100, 80);
 		positionNode(scorePane, 65, 100);
-
 	}
 
+	
 	private void initiaiseScorePane() {
 		scorePane = new ScrollPane();
 		scorePane.setPrefSize(300, 300);
-		scorePane.setContent(text);
-		
+		scorePane.setContent(text);	
 	}
 	
 	private void setTitle() {
@@ -39,7 +37,14 @@ public class ScoreSubScene extends SnapSubScene {
 	}
 	
 	private void setText() {
-		text = makeText(scoreCard.readScore(), 10);
+		text = makeText(scores, 10);
+	}
+	
+	public void updateScores(String scores) {
+		this.scores = scores;
+		this.getPane().getChildren().remove(text);
+		setText();
+		scorePane.setContent(text);	
 	}
 
 }

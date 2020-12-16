@@ -10,11 +10,10 @@ public class CreditsSubScene extends SnapSubScene {
 	public CreditsSubScene() {
 		setTitle();
 		setText();
-		initialiseBody();	
+		addNodes();	
 	}
 	
-	@Override
-	protected void initialiseBody() {
+	private void addNodes() {
 		this.getPane().getChildren().add(title);
 		this.getPane().getChildren().add(text);
 		positionNode(title, 150, 40);
