@@ -12,17 +12,23 @@ import view.MenuView;
 import view.SnapButton;
 import view.SnapCheckBox;
 
+/**
+ * Controls the view objects and listeners for the menu. Contains listeners and views for the credits
+ * sub scene, instructions sub scene, and results sub scene. It also collects the
+ * number of players and number of decks to be used in the game and launches the
+ * game controller when indicated.
+ */
 public class MenuController {
 	
 	private static final int HEIGHT = 600;
 	private static final int WIDTH = 800;
-	private MenuView menu;
+	private final MenuView menu;
 	
 	int[] inputVariables = {-1,-1};
-	private AnchorPane mainPane;
-	private Scene mainScene;
-	private Stage mainStage;
-	private ScoreCard scoreCard;
+	private final AnchorPane mainPane;
+	private final Scene mainScene;
+	private final Stage mainStage;
+	private final ScoreCard scoreCard;
 
 	
 	public MenuController() {
@@ -37,33 +43,28 @@ public class MenuController {
 		addStartListeners();
 		fetchScores();
 	}
-	
-	public Stage getMainStage() {
+
+	public Stage getMainStage(){
 		return mainStage;
 	}
-	
 	private void createButtonListeners() {
 		for (SnapButton button : menu.getButtonScenePair().keySet()) {
-			button.setOnAction(event -> {
-				menu.showSubScene(menu.getButtonScenePair().get(button));
-			});
+			button.setOnAction(event -> menu.showSubScene(menu.getButtonScenePair().get(button)));
 		}
-		menu.getExitButton().setOnAction(event ->{
-			mainStage.close();
-	});
+		menu.getExitButton().setOnAction(event -> mainStage.close());
 		
 	}
 	private void addStartListeners() {
 		addPlayListener();
-		addBoxListener(menu.getStartScene().getDeckBoxes(), 0);
-		addBoxListener(menu.getStartScene().getPlayerBoxes(), 0);
+		addBoxListener(menu.getStartScene().getDeckBoxes());
+		addBoxListener(menu.getStartScene().getPlayerBoxes());
 	}
 
 	private void fetchScores() {
 		menu.getScoreScene().updateScores(scoreCard.readScore());
 	}
 
-	private void addBoxListener(ArrayList<SnapCheckBox> boxes, int i) {
+	private void addBoxListener(ArrayList<SnapCheckBox> boxes) {
 		for (SnapCheckBox box: boxes) {
 			box.setOnMouseClicked(event -> {
 			for (SnapCheckBox other : boxes) {
@@ -88,9 +89,9 @@ public class MenuController {
 			if (getInput()){
 				try{
 					GameViewController game = new GameViewController(inputVariables);
-					game.createNewGame(getMainStage());
+					game.createNewGame(mainStage);
 				}catch (GameException ex) {
-				};
+				}
 			} else
 				missingInputAlert();
 		});
@@ -103,10 +104,5 @@ public class MenuController {
 		alert.setContentText("Oops, please select number of decks and number of players.");
 		alert.showAndWait();
 	}
-		
-
-
-	
-	
 
 }

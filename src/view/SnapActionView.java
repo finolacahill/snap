@@ -14,16 +14,30 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
+/**
+ * This view displays the results of a snap action. It indicates which player pressed snap
+ * and whether this snap was successful or not.
+ */
 public class SnapActionView {
-	private VBox snap;
+	private final VBox snap;
 	private Image image;
 	private Text text;
-	private String success = "resources/snap.png";
-	private String failed = "resources/oops.png";
+	private final String success = "resources/snap.png";
+	private final String failed = "resources/oops.png";
+
 	public SnapActionView() {
 		snap = new VBox();
 	}
-	
+
+	/**
+	 * If snap is successful shows succes image, else failure image.
+	 * @param id
+	 * player id
+	 * @param successful
+	 * snap success status
+	 * @return
+	 * snap result view
+	 */
 	public VBox showSnapResult(int id, boolean successful) {
 		if (!successful)
 			return showSnap(failed, id);
@@ -58,7 +72,12 @@ public class SnapActionView {
 		snap.setPrefHeight(150);
 		snap.setPrefWidth(300);
 	}
-	
+
+	/**
+	 * returns unmodified current snap view
+	 * @return
+	 * snap view
+	 */
 	public VBox getSnap() {
 		return snap;
 	}

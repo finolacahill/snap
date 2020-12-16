@@ -83,20 +83,6 @@ class TestDeck {
 	}
 	
 	@Test
-	void testGetCard() {
-		Deck deck = new Deck(2);
-		assertEquals(deck.getCardAtIndex(2).getValue(), 3);
-		try {
-			deck.getCardAtIndex(-1);
-			fail("Can't get negative index");
-		} catch(CardException ex) {};
-		try {
-			deck.getCardAtIndex(105);
-			fail("Card index out of range");
-		} catch(CardException ex) {};
-	}
-	
-	@Test
 	void testAddCard() {
 		Deck deck = new Deck(2, true);
 		Card card = new Card(1);

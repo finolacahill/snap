@@ -2,7 +2,11 @@ package model;
 
 import java.util.ArrayList;
 
-
+/**
+ *  Game handles game play, and contains the players and the communal pile of cards.
+ *  It is instantiated with a list of Player names, and an int indicating the number
+ *  of decks to be used.
+ */
 public class Game {
 	private ArrayList<Player> players;
 	private Deck pile;
@@ -11,7 +15,14 @@ public class Game {
 	private Player winner;
 	private boolean gameOver;
 	private ScoreCard scoreCard;
-	
+
+	/**
+	 * Game is constructed with a list of player names, and the number of decks to be used.
+	 * @param names
+	 * ArrayList of player names in String format
+	 * @param decks
+	 * number of decks to be used in game
+	 */
 	public Game(ArrayList<String> names, int decks) {
 		if(!(checkInput(names, decks)))
 			throw new GameException("Number of players or decks out of range");
@@ -25,10 +36,22 @@ public class Game {
 
 	}
 	
-	public Player getPlayer(int id) {
-		return players.get(id);
+	/**
+	 * Returns the player at index i in the Player list. 
+	 * @param  i
+	 * int index
+	 * @return player
+	 * Player Object
+	 */
+	public Player getPlayer(int i) {
+		return players.get(i);
 	}
 	
+	/**
+	 * Returns an ArrayList of all Players
+	 * @return players
+	 * ArrayList of Player Objects
+	 */
 	public ArrayList<Player> getPlayers(){
 		return players;
 	}
@@ -47,15 +70,8 @@ public class Game {
 				&& decks >= 2 && decks <= 6);
 	}
 	
-	public ScoreCard getScoreCard() {
-		return scoreCard;
-	}
-		
-	public int getNumberOfPlayers() {
-		return numberOfPlayers;
-	}
 	
-	public void assignCards() {
+	private void assignCards() {
 		pile.shuffle();
 		ArrayList<Deck> split;
 		split = pile.splitDeck(numberOfPlayers);
@@ -73,18 +89,34 @@ public class Game {
 			setTurn();
 	}
 	
+	/**
+	 * Returns an int indicating the id of the player whose turn it is.
+	 * @return int
+	 */
 	public int getTurn() {
 		return turn;
 	}
 	
+	/**
+	 * Returns the deck that contains the communal pile of the game. 
+	 * @return Deck Object
+	 */
 	public Deck getPile() {
 		return pile;
 	}
 	
+	/**
+	 * Returns true if the game is over, else false. 
+	 * @return boolean
+	 */
 	public boolean getGameOver() {
 		return gameOver;
 	}
 	
+	/**
+	 * Returns the winning player. 
+	 * @return Player Object
+	 */
 	public Player getWinner() {
 		return winner;
 	}
@@ -126,6 +158,12 @@ public class Game {
 		}
 	}
 
+	/**
+	 * Sets the last turned card as the second last turned card. Takes a card from 
+	 * the player whose turn it is and adds it to the communal pile, setting it as
+	 * the last turned card. Checks if any players have lost (have no more cards) 
+	 * after that action and if the game is over (only one player left).
+	 */
 	public void turn() {
 		pile.setLastCard(pile.getTopCard());
 		try{
@@ -138,19 +176,37 @@ public class Game {
 		}
 	}
 	
+	/**
+	 * Sets the last turned card of the communal pile to the given Card object.
+	 * @param c
+	 * Card Object
+	 */
 	public void setTopCard(Card c) {
 		pile.setTopCard(c);
 		
 	}
 	
+	/**
+	 * Sets the second last turned card of the communal pile to the given Card object.
+	 * @param c
+	 * Card Object
+	 */
 	public void setLastCard(Card c) {
 		pile.setLastCard(c);
 	}
 
+	/**
+	 * Gets the last turned card of the communal pile
+	 * @return Card object
+	 */
 	public Card getTopCard() {
 		return pile.getTopCard();
 	}
 	
+	/**
+	 * Gets the second last turned card of the communal pile
+	 * @return Card object
+	 */
 	public Card getLastCard() {
 		return pile.getLastCard();
 	}
@@ -174,28 +230,26 @@ public class Game {
 		pile.setTopCard(null);		
 	}
 
+	/**
+	 * Checks if the snap provoked by Player p is valid. If it is, player p receives the
+	 * cards contained in the communal pile. Else, the cards in the communal pile are
+	 * distributed to all other players still in the game. It returns a boolean indicating
+	 * whether snap was successful or not. 
+	 * @param p
+	 * Player Object
+	 * @return boolean
+	 */
 	public boolean snap(Player p) {
 		if (pile.getLastCard() != null) {
 			if (pile.isSnap()){
 				givePile(p);
 				System.out.println(p.getName() + " wins Snap and has cards: "+ p.getDeck().getNumberOfCards());
-				System.out.println(p.getName() + " has lost is " + p.getHasLost());
-
 				return true;
 			}
 		}
 		distributePile(p);
 		System.out.println(p.getName() + " loses Snap");
-		printCardNums();
 		return false;
-	}
-	
-	public void printCardNums() {
-		for (int i = 0; i < numberOfPlayers; ++i) {
-			System.out.println(players.get(i).getName() + " has " + players.get(i).getDeck().getNumberOfCards());
-			System.out.println(players.get(i).getName() + " has lost is " + players.get(i).getHasLost());
-
-		}
 	}
 	
 }

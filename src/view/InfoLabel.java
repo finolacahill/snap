@@ -12,13 +12,24 @@ import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.text.Font;
-
+/**
+ * A customised label for use in SnapSubScenes.
+ */
 public class InfoLabel extends Label {
 	
 	public final static String FONT_PATH = "../Snap/src/resources/kenvector_future.ttf";
 
 	public final static String BACKGROUND_IMAGE = "resources/green_button13.png";
-	
+
+	/**
+	 *
+	 * @param text
+	 * String text to be featured on label
+	 * @param w
+	 * int label width, must be positive
+	 * @param h
+	 * int label height must be positive
+	 */
 	public InfoLabel(String text, int w, int h) {
 		if(!(checkDimensions(w,h)))
 			throw new IllegalArgumentException("Width and height must be positive");

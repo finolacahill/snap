@@ -5,27 +5,42 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
+/**
+ * The player view displays the state of each player. This means displaying their name,
+ * their player number, the number of cards in their deck, or if they have lost. It
+ * also displays whether or not it is their turn to turn over a card.
+ */
 public class PlayerView {
 	private int displayNumber;
-	private int id;
+	private final int id;
 	private InfoLabel label;
 	private HBox display;
-	private String name;
+	private final String name;
 	private Text turn;
 	private ArrayList<int[]> corners;
+	private KeyCode keyCode;
 
-	
+	/**
+	 * Each player view is unique to a player, hence it is instantiated with their
+	 * player name and their id.
+	 * @param id
+	 * player id number.
+	 * @param name
+	 * player name.
+	 */
 	public PlayerView(int id, String name) {
 		this.id = id;
 		this.name = name;
 		setCorners();
 		setTurn();
 		initialiseDisplay();
+		setKeyCode();
 	}
 	
 	private void initialiseDisplay() {
@@ -64,8 +79,16 @@ public class PlayerView {
 		}
 		else
 			hasLost();
-
 	}
+
+	/**
+	 * If the number of cards has changed, the display is updated
+	 * and returned, otherwise it is simply returned.
+	 * @param numCards
+	 * number of cards player has
+	 * @return
+	 * HBox, player view.
+	 */
 	public HBox showDisplay(int numCards) {
 		if (displayNumber != numCards)
 			updateDisplay(numCards);
@@ -75,7 +98,12 @@ public class PlayerView {
 	public int getId() {
 		return id;
 	}
-	
+
+	/**
+	 * Returns current state of player display, without potential update.
+	 * @return
+	 * player's display
+	 */
 	public HBox getDisplay() {
 		return display;
 	}
@@ -91,8 +119,33 @@ public class PlayerView {
 		turn.setLayoutX(corners.get(id-1)[0]);
 		turn.setLayoutY(corners.get(id-1)[1]);
 	}
-	
+
+	/**
+	 * Returns text view indicating it is this player's turn.
+	 * @return
+	 * turn text
+	 */
 	public Text getTurn() {
 		return turn;
 	}
+	
+	private void setKeyCode() {
+		if (id == 1)
+			keyCode = KeyCode.S;
+		if (id == 2)
+			keyCode = KeyCode.P;
+		if (id == 3)
+			keyCode = KeyCode.N;
+		if (id == 4)
+			keyCode = KeyCode.A;
+	}
+
+	/**
+	 * Returns the keyCode associated with this player id.
+	 * @return
+	 * players snap key
+	 */
+	public KeyCode getKeyCode() {
+		return keyCode;
+}
 }

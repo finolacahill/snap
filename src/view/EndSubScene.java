@@ -3,12 +3,22 @@ package view;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
+/**
+ * End sub scene is shown when game is over.
+ * It indicates the winner and gives the user the option of
+ * retuning to the menu or exiting.
+ */
 public class EndSubScene extends SnapSubScene {
 	private Text text;
-	private SnapButton exitButton = new SnapButton("GOODBYE");
-	private SnapButton mainButton = new SnapButton("MAIN MENU");
+	final SnapButton exitButton = new SnapButton("GOODBYE");
+	final SnapButton mainButton = new SnapButton("MAIN MENU");
 	private ImageView image;
-	
+
+	/**
+	 * T
+	 * @param s
+	 * Winning player's name to be added to scene.
+	 */
 	public EndSubScene(String s) {
 		setText(s);
 		initialiseBody();

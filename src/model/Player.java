@@ -1,25 +1,32 @@
 package model;
 
-
-import javafx.scene.input.KeyCode;
-
+/**
+ * Contains functionality for player.
+ * This class stores the player name, id, its' personal deck of cards
+ * and whether the player is still in the game or not.
+ */
 public class Player {
 	
-	private String name;
+	private final String name;
 	final int id;
 	private Deck deck;
-	private KeyCode keyCode;
 	private boolean hasLost;
-	
 
-	public Player(int i, String name) {
-		if (!(checkInput(i, name)))
+	/**
+	 * Player Object takes an id number between 1 and 4 (inclusive) and a name that is between
+	 * 1 and 14 characters long (inclusive).
+	 * @param id
+	 * int player id
+	 * @param name
+	 * String player name
+	 */
+	public Player(int id, String name) {
+		if (!(checkInput(id, name)))
 			throw new GameException("Player name or id is invalid.");
-		id = i;
+		this.id = id;
 		this.name = name;
 
 		hasLost = false;
-		setKeyCode();
 
 	}
 	
@@ -27,10 +34,17 @@ public class Player {
 		return (id >= 1 && id <= 4 && !isEmptyName(name) && name.length()<= 14);
 	}
 
+	/**
+	 * Returns true if the player has lost and is out of the game.
+	 * @return Boolean
+	 */
 	public boolean getHasLost() {
 		return hasLost;
 	}
 	
+	/**
+	 * Set's hasLost variable to true, indicating the player is out of the game. 
+	 */
 	public void hasNowLost() {
 		hasLost = true;
 	}
@@ -38,36 +52,42 @@ public class Player {
 	private boolean isEmptyName(String s) {
 		return (s.trim().length() == 0);
 	}
+	
+	/**
+	 * Returns the player name.
+	 * @return String name
+	 */
 	public String getName() {
 		return name;
 	}
 	
+	
+	/**
+	 * Sets the player's personal deck to the given Deck object.
+	 * @param d
+	 * Deck Object
+	 */
 	public void setDeck(Deck d) {
 		deck = d;
 	}
 	
+	/**
+	 * Returns the player's Id.
+	 * @return id
+	 */
 	public int getId() {
 		return id;
 	}
 
+	/**
+	 * Returns the player's personal deck
+	 * @return deck
+	 */
 	public Deck getDeck() {
 		return deck;
 	}
 	
-	private void setKeyCode() {
-		if (id == 1)
-			keyCode = KeyCode.S;
-		if (id == 2)
-			keyCode = KeyCode.P;
-		if (id == 3)
-			keyCode = KeyCode.A;
-		if (id == 4)
-			keyCode = KeyCode.N;
-	}
-	
-	public KeyCode getKeyCode() {
-		return keyCode;
-}
+
 
 	
 

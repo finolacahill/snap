@@ -3,10 +3,18 @@ package view;
 
 import javafx.scene.text.Text;
 
+/**
+ * Sub scene showing game credits.
+ */
 public class CreditsSubScene extends SnapSubScene {
 	private Text title;
 	private Text text;
 
+	/**
+	 * Creates credit scene from credits text file found in resources.
+	 * If file is not found, the exception is handled and gameplay continues
+	 * as normal.
+	 */
 	public CreditsSubScene() {
 		setTitle();
 		setText();

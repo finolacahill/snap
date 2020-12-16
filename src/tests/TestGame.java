@@ -11,7 +11,6 @@ import model.CardException;
 import model.Game;
 import model.GameException;
 import model.Player;
-import model.ScoreCard;
 
 class TestGame {
 	Game game;
@@ -49,7 +48,7 @@ class TestGame {
 		names.remove(1);
 		game = new Game(names, 2);
 		System.out.println(names);
-		assertEquals(game.getNumberOfPlayers(), 4);
+		assertEquals(game.getPlayers().size(), 4);
 		try {
 			game = new Game(names, 1);
 			fail("Not enough decks");
@@ -69,11 +68,6 @@ class TestGame {
 		}
 	}
 
-	@Test
-	void testGetScorecard() {
-		setGame(2,2);
-		assertTrue(game.getScoreCard() instanceof ScoreCard);
-	}
 	@Test
 	void testAssignCards() {
 		setGame(2,2);

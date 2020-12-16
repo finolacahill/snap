@@ -4,14 +4,22 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javafx.geometry.Insets;
 //import view.SnapSubScene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
 
+/**
+ * Menu view manages the views for the menu scene. It instantiates and contains
+ * the menu-related buttons and subscenes.
+ */
 public class MenuView {
 	
 	private CreditsSubScene credits;
@@ -26,15 +34,20 @@ public class MenuView {
 	private SnapButton exitButton;
 	private SnapButton startButton;
 	
-	private AnchorPane mainPane;
+	private final AnchorPane mainPane;
 	
-	private int  MENU_BUTTONS_START_X = 550;
-	private int MENU_BUTTONS_START_Y = 50;
+	final int  MENU_BUTTONS_START_X = 550;
+	final int MENU_BUTTONS_START_Y = 50;
 	
 	List<SnapButton> menuButtons;
 	HashMap<SnapButton, SnapSubScene> buttonScenePair;
 
-	
+	/**
+	 * MenuView takes the main Anchor pane as a constructor variable. This allows it to
+	 * place elements to the mainPane.
+	 * @param mainPane
+	 * mainPane
+	 */
 	public MenuView(AnchorPane mainPane) {
 		this.mainPane = mainPane;
 		createBackground();
@@ -44,9 +57,15 @@ public class MenuView {
 	}
 	
 	private void createBackground() {
-		Image image = new Image("resources/snap_bg.png", 800, 600, false, true);
-		BackgroundImage background = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, null);
-		mainPane.setBackground(new Background(background));
+		try {
+		Image image = new Image("./resources/snap_bg.png", 800, 600, false, true);
+		BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, null);
+		mainPane.setBackground(new Background(backgroundImage));
+		}
+		catch(Exception ex) {
+			BackgroundFill background = new BackgroundFill(Color.FORESTGREEN, CornerRadii.EMPTY, Insets.EMPTY);
+			mainPane.setBackground(new Background(background));
+		}
 	}
 	
 	private void createSubScenes() {
@@ -85,27 +104,49 @@ public class MenuView {
 		buttonScenePair.put(helpButton,  help);
 		buttonScenePair.put(creditButton, credits);		
 	}
-	
+
+	/**
+	 * This hashmap contains buttons as keys, and their corresponding subscene as values.
+	 * @return
+	 * hashmap containing SnapButton keys, and SnapSubScene values.
+	 */
 	public HashMap<SnapButton, SnapSubScene> getButtonScenePair() {
 		return buttonScenePair;
 	}
-	
-	public List<SnapButton> getMenuButtons(){
-		return menuButtons;
-	}
-	
+
+	/**
+	 * Returns the exit button. The exit button is not included in the pairing hashmap,
+	 * as it does not have a corresponding sub scene, it exits.
+	 * @return
+	 * SnapButton
+	 */
 	public SnapButton getExitButton() {
 		return exitButton;
 	}
-	
+
+	/**
+	 * Returns the start subscene.
+	 * @return
+	 * StartSubScene
+	 */
 	public StartSubScene getStartScene() {
 		return start;
 	}
-	
+
+	/**
+	 * Returns the scores subscene.
+	 * @return
+	 * ScoreSubScene
+	 */
 	public ScoreSubScene getScoreScene() {
 		return scores;
 	}
-	
+
+	/**
+	 * This function moves a subscene out of view before moving a new subscene into view.
+	 * @param subScene
+	 * A subscene extending SnapSubScene
+	 */
 	public void showSubScene(SnapSubScene subScene) {
 		if(currentScene != null && currentScene != subScene)
 				currentScene.moveSceneOut();

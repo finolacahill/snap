@@ -8,19 +8,37 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseButton;
 import javafx.scene.text.Font;
 
+/**
+ * A customized button to be used throughout subscenes.
+ */
 public class SnapButton extends Button {
 	
-	private final String FONT_PATH = "../Snap/src/resources/kenvector_future.ttf";
-	private final String BUTTON_PRESSED_STYLE = "-fx-background-image: url('./resources/green_button03.png')";
-	private final String BUTTON_FREE_STYLE = "-fx-background-image: url('./resources/green_button02.png')";
+	final String FONT_PATH = "../Snap/src/resources/kenvector_future.ttf";
+	final String BUTTON_PRESSED_STYLE = "-fx-background-image: url('./resources/green_button03.png')";
+	final String BUTTON_FREE_STYLE = "-fx-background-image: url('./resources/green_button02.png')";
 	
 	private int width = 190;
 	private int height = 49;
-	
+
+	/** If width and height are not specified, uses default values.
+	 *
+	 * @param text
+	 * text to be displayed on button.
+	 */
 	public SnapButton(String text) {
 		createButton(text);
 	}
-	
+
+	/**
+	 * If width and height are given, default values are ignored. Both values
+	 * must be greater than zero.
+	 * @param text
+	 * text to be displayed
+	 * @param w
+	 * button width
+	 * @param h
+	 * button height
+	 */
 	public SnapButton(String text, int w, int h) {
 		if (w < 0 || h < 0)
 			throw new IllegalArgumentException("Width/height must be positive");
@@ -73,12 +91,8 @@ public class SnapButton extends Button {
 			}
 		});
 		
-		setOnMouseEntered(event ->{
-			setEffect(new DropShadow());
-		});
+		setOnMouseEntered(event -> setEffect(new DropShadow()));
 		
-		setOnMouseExited(event ->{
-			setEffect(null);
-		});
+		setOnMouseExited(event -> setEffect(null));
 	}
 }

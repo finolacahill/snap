@@ -18,7 +18,7 @@ public class StartSubScene extends SnapSubScene {
 	private void createPlayerNumberChooser() {
 		InfoLabel playerLabel = new InfoLabel("HOW MANY PLAYERS?", 300, 40);
 		playerBoxes = new ArrayList<SnapCheckBox>();
-		HBox choosePlayers = createQuantityPicker(2, 4, playerBoxes);
+		HBox choosePlayers = createQuantityPicker(4, playerBoxes);
 		positionNode(choosePlayers, 115, 120);
 		positionNode(playerLabel, 60, 60);
 		this.getPane().getChildren().add(playerLabel);
@@ -28,7 +28,7 @@ public class StartSubScene extends SnapSubScene {
 	private void createDeckChooser() {
 		deckBoxes = new ArrayList<SnapCheckBox>();
 		InfoLabel deckLabel = new InfoLabel("HOW MANY DECKS OF CARDS?", 300, 40);
-		HBox chooseDeck = createQuantityPicker(2, 6, deckBoxes);
+		HBox chooseDeck = createQuantityPicker(6, deckBoxes);
 		positionNode(chooseDeck, 30, 270);
 		positionNode(deckLabel, 60, 220);
 		this.getPane().getChildren().add(deckLabel);
@@ -41,10 +41,10 @@ public class StartSubScene extends SnapSubScene {
 		this.getPane().getChildren().add(playButton);
 	}
 
-	protected HBox createQuantityPicker(int min, int max, ArrayList<SnapCheckBox> boxes) {
+	protected HBox createQuantityPicker(int max, ArrayList<SnapCheckBox> boxes) {
 		HBox frame = new HBox();
 		frame.setSpacing(60);
-		for (int i = min; i <= max; i++) {
+		for (int i = 2; i <= max; i++) {
 			SnapCheckBox box = new SnapCheckBox(i);
 		    boxes.add(box);
 			frame.getChildren().add(box);

@@ -6,8 +6,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 
+/**
+ * This class visualises the current state of the communal pile. It shows the
+ * current amount of cards in said pile.
+ */
 public class PileView {
-	private StackPane pile;
+	private final StackPane pile;
 	private Text pileCount;
 
 
@@ -29,7 +33,16 @@ public class PileView {
 		pileCount.setX(130);
 		pileCount.setY(30);
 	}
-	
+
+	/**
+	 * The number of cards displayed is updated to match the number of cards
+	 * in the model, and the stack pane is returned.
+	 * @param numberOfCards
+	 * number of cards in communal pile
+	 * @return
+	 * StackPane
+	 */
+
 	public StackPane getPileView(int numberOfCards) {
 		if (pileCount != null)
 			pile.getChildren().remove(pileCount);
