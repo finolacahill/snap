@@ -102,7 +102,7 @@ public class MenuView {
 		buttonScenePair.put(startButton, start);
 		buttonScenePair.put(scoreButton, scores);
 		buttonScenePair.put(helpButton,  help);
-		buttonScenePair.put(creditButton, credits);		
+		buttonScenePair.put(creditButton, credits);
 	}
 
 	/**
@@ -153,4 +153,14 @@ public class MenuView {
 		subScene.moveSceneIn();
 		currentScene = subScene;
 	}
+
+	/**
+	 * Returns the score button.
+	 * @return
+	 * score button
+	 */
+	public SnapButton getScoreButton(){
+		return scoreButton;
+	}
+
 }

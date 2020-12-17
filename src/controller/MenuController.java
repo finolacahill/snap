@@ -42,6 +42,7 @@ public class MenuController {
 	    createButtonListeners();
 		addStartListeners();
 		fetchScores();
+		addScoresListener();
 	}
 
 	public Stage getMainStage(){
@@ -64,6 +65,9 @@ public class MenuController {
 		menu.getScoreScene().updateScores(scoreCard.readScore());
 	}
 
+	private void addScoresListener(){
+		menu.getScoreButton().setOnMouseClicked(event -> fetchScores());
+	}
 	private void addBoxListener(ArrayList<SnapCheckBox> boxes) {
 		for (SnapCheckBox box: boxes) {
 			box.setOnMouseClicked(event -> {

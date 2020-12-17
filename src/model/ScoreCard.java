@@ -55,6 +55,7 @@ public class ScoreCard{
 	 * previous game results
 	 */
 	public String readScore() {
+		scores = getScores();
 		return scores;
 	}
 	
@@ -73,6 +74,7 @@ public class ScoreCard{
 			if (o instanceof String)
 				return (String) o;
 		} catch(Exception ex) {
+			ex.printStackTrace();
 			return null;
 		}
 		return null;
