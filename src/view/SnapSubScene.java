@@ -32,7 +32,7 @@ public abstract class SnapSubScene extends SubScene{
 		super(new AnchorPane(), 500, 600);
 		prefWidth(600);
 		prefHeight(400);
-
+ 
 		String BACKGROUND_IMAGE = "resources/metalPanel.png";
 		BackgroundImage image = new BackgroundImage(new Image(BACKGROUND_IMAGE, 430, 450, false, true),
 				BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, null);

@@ -179,7 +179,7 @@ public class GameView {
 	 * multiple times during game. If it has already been called and hidden
 	 * and newer nodes have been added to gamepane, they will obscure the instructions.
 	 * Hence, when it is called we remove and then re-add the scene, to ensure it
-	 * is the most foreward facing node on the gamepane.
+	 * is the most forward facing node on the gamepane.
 	 */
 	public void moveInstructions() {
 		if (gamePane.getChildren().contains(instructions)) {

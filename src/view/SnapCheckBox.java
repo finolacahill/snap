@@ -21,7 +21,7 @@ public class SnapCheckBox extends VBox{
 	private boolean isChosen;
 
 	/**
-	 * The checkbox will dislay about it the indicated number.
+	 * The checkbox will display about it the indicated number.
 	 * The number can be between 2 and 6.
 	 * @param n
 	 * the number to be displayed
@@ -52,7 +52,7 @@ public class SnapCheckBox extends VBox{
 	}
 
 	/**
-	 * returns the number value assosciated with the checkbox
+	 * returns the number value associated with the checkbox
 	 * @return
 	 * checkbox numerical value
 	 */

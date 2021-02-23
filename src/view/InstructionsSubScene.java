@@ -54,7 +54,7 @@ public class InstructionsSubScene extends SnapSubScene {
 
 	/**
 	 * Gameplay should not be able to continue while the game is obscured by
-	 * the instructions scene. Hence the gameloop needs to be able to check
+	 * the instructions scene. Hence the game loop needs to be able to check
 	 * if the instructions scene is hidden or not.
 	 * @return
 	 * boolean indicating whether scene is hidden or not.

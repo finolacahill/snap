@@ -1,0 +1,15 @@
+* Player 1 press S to snap
+
+* Player 2 press P to snap
+
+* Player 3 press N to snap
+
+* Player 4 press A to snap
+
+Press the spacebar on your turn to
+turn a new card.
+
+Press H to hide instructions and press
+H anytime to see this information again
+
+THEN, PLAYER 1 PRESS SPACE BAR TO START!

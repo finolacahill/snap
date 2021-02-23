@@ -43,10 +43,10 @@ public class ScoreCard{
 	 * String containing game results
 	 */
 	public void writeScore(String s) {
-		if (scores == null)
-			scores = new String();
-		scores = "\n" + s + "\n" + scores;
-		saveObject(path);
+		if(s != null) {
+			scores = "\n" + s + "\n" + scores;
+			saveObject(path);
+		}
 	}
 
 	/**
@@ -58,7 +58,10 @@ public class ScoreCard{
 		scores = getScores();
 		return scores;
 	}
-	
+
+	/*
+	Saves this score string as a serialised object to either the given path
+	 */
 	private void saveObject(String path) {
 		try {
 			oos = new ObjectOutputStream(new FileOutputStream(new File(path)));
@@ -66,18 +69,19 @@ public class ScoreCard{
 			oos.close();
 		}catch (Exception ex) {};
 	}
-	
+
+	/*
+	Tries to read in serialised object and return it as a string.
+	If object not found or is the incorrect type, returns an indicative string.
+	 */
 	private String getScores() {
 		try {
 			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(new File(path)));
 			Object o = ois.readObject();
 			if (o instanceof String)
 				return (String) o;
-		} catch(Exception ex) {
-			ex.printStackTrace();
-			return null;
-		}
-		return null;
+		} catch(Exception ex) {}
+		return new String("\nNo previous game results found!");
 	}
 	
 }

@@ -61,6 +61,7 @@ public class MenuController {
 		addBoxListener(menu.getStartScene().getPlayerBoxes());
 	}
 
+	//Fetches latest game results from model and updates the view.
 	private void fetchScores() {
 		menu.getScoreScene().updateScores(scoreCard.readScore());
 	}
@@ -68,6 +69,9 @@ public class MenuController {
 	private void addScoresListener(){
 		menu.getScoreButton().setOnMouseClicked(event -> fetchScores());
 	}
+
+	//Ensures that only one check box is selected at a time. When a box
+	//is clicked, all boxes are unchecked and the new box selected.
 	private void addBoxListener(ArrayList<SnapCheckBox> boxes) {
 		for (SnapCheckBox box: boxes) {
 			box.setOnMouseClicked(event -> {
@@ -88,6 +92,9 @@ public class MenuController {
 		return(inputVariables[0] != -1 && inputVariables[1] != -1);
 	}
 
+	// If the player cancels the game before starting, it returns a
+	// Game Exception, which is why this exception is handled silently,
+	// allowing the player to return to the main menu.
 	private void addPlayListener() {
 		menu.getStartScene().getPlayButton().setOnAction(event ->{
 			if (getInput()){

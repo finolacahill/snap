@@ -70,6 +70,9 @@ public class Deck {
 		}
 	}
 
+	/*
+	This function is used to shuffle the deck.
+	 */
 	private void swapRandom() {
 		int x;
 		int y;

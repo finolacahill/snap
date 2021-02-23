@@ -25,7 +25,7 @@ class TestScoreCard {
 		scoreCard = new ScoreCard(testPath);
 		scoreCard.writeScore("tests");
 		scoreCard.writeScore("tests");
-		assertEquals(scoreCard.readScore(),("\ntests\n\ntests\n"));
+		assertEquals(scoreCard.readScore(),("\ntests\n\ntests\n\nNo previous game results found!"));
 		f.delete();
 	}
 	
@@ -36,6 +36,8 @@ class TestScoreCard {
 		scoreCard.writeScore("I am a test");
 		ScoreCard scoreCard2 = new ScoreCard(testPath);
 		assertEquals(scoreCard2.readScore(), "\nI am a test\n");
+		scoreCard2.writeScore("I'm another test!");
+		assertEquals(scoreCard.readScore(), "\nI'm another test!\n\nI am a test\n");
 		f.delete();
 	}
 	
@@ -45,12 +47,31 @@ class TestScoreCard {
 		try {
 			f.createNewFile();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		assertTrue(f.exists());
 		scoreCard = new ScoreCard(testPath);
 		assertEquals(scoreCard.readScore(), null);
+		f.delete();
+	}
+	
+	@Test
+	void testNoObject() {
+		File f = new File(testPath);
+		f.delete();
+		scoreCard = new ScoreCard(testPath);
+		assertEquals(scoreCard.readScore(),("\nNo previous game results found!"));
+		f.delete();
+	}
+	
+	@Test
+	void testWriteNullScore() {
+		File f = new File(testPath);
+		f.delete();
+		scoreCard = new ScoreCard(testPath);
+		assertEquals(scoreCard.readScore(), ("\nNo previous game results found!"));
+		scoreCard.writeScore(null);
+		assertEquals(scoreCard.readScore(), ("\nNo previous game results found!"));
 		f.delete();
 	}
 	

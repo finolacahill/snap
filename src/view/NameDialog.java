@@ -22,13 +22,16 @@ public class NameDialog {
 	public NameDialog() {
 		nameList = new ArrayList<String>();
 	}
-	
-	//Code adapted from: https://code.makery.ch/blog/javafx-dialogs-official/
+	/*
+	Code adapted from: https://code.makery.ch/blog/javafx-dialogs-official/
+	If a correct name is entered, it is saved, otherwise this function recurses
+	indicating boolean error = true.
+	 */
 	private void getName(int id, boolean error){
 	TextInputDialog dialog = createDialogWindow(id, error);
 	Optional<String> result = dialog.showAndWait();
-	if (result.isPresent() && validName(result.get())){
-		nameList.add(result.get().trim());
+	if (result.isPresent() && validName(result.get().trim().toLowerCase())){
+		nameList.add(result.get().trim().toLowerCase());
 	}
 	else if (result.equals(Optional.empty())) {
 		throw new GameException("User has cancelled");
@@ -36,7 +39,12 @@ public class NameDialog {
 	else
 		getName(id, true);
 	}
-	
+
+	/*
+	Creates the text dialog window to be displayed. If there was an error
+	in previous input, it displays an error dialog prior to showing the
+	text input dialog.
+	 */
 	private TextInputDialog createDialogWindow(int id, boolean error) {
 		TextInputDialog dialog = new TextInputDialog("walter");
 		if (error)
@@ -52,9 +60,12 @@ public class NameDialog {
 		alert.setContentText("Oops, name must be unique and be between 1-14 characters long!");
 		alert.showAndWait();
 	}
-	
+
+	/*
+	This verifies if the name is unique, and between 1 and 14 characters.
+	 */
 	private boolean validName(String s) {
-		return s!=null && s.trim().length()>0 && !nameList.contains(s) && s.trim().length() < 15;
+		return s!=null && s.length()>0 && !nameList.contains(s) && s.length() < 15;
 	}
 
 	/**

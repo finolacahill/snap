@@ -30,7 +30,7 @@ public class SnapActionView {
 	}
 
 	/**
-	 * If snap is successful shows succes image, else failure image.
+	 * If snap is successful shows success image, else failure image.
 	 * @param id
 	 * player id
 	 * @param successful

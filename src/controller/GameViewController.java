@@ -40,7 +40,10 @@ public class GameViewController {
 	public GameViewController(int[] input) {
 		inputs = input;
 	}
-	
+
+	/*
+	The NameDialog throws a game exception if the user clicks on the cancel button.
+	 */
 	private ArrayList<String> getNames() {
 		NameDialog n = new NameDialog();
 		nameList = new ArrayList<String>();
@@ -75,12 +78,13 @@ public class GameViewController {
 		}
 	}
 	
-
+	/*
+	This creates the keyboard input listeners necessary to play the game.
+	 */
 	private void createKeyListeners() {
 		addGameKeys();
 		view.getGameScene().setOnKeyPressed(event ->{
 			if (keyListeners.containsKey(event.getCode())) {
-					System.out.println(event.getCode().toString());
 					keyListeners.put(event.getCode(), true);
 			}
 		});
@@ -112,7 +116,6 @@ public class GameViewController {
 
 	private void createEndSceneListeners() {
 		view.getEndScene().getMainButton().setOnAction(event ->{
-			MenuController main = new MenuController();
 			menuStage.show();
 			view.close();
 		});
@@ -120,21 +123,34 @@ public class GameViewController {
 
 	}
 
+	/*
+	This takes the current number of cards from the model, and updates the view.
+	 */
 	private void displayPlayers() {
 		for (Player p: game.getPlayers()) {
 			view.updateDisplay(p.getId(), p.getDeck().getNumberOfCards());
 		}
 	}
-					
+
+	/*
+	This verifies that the player who pressed a snap key is not already out of the game.
+	 */
 	private boolean playerHasPressed(PlayerView p) {
 		return (!game.getPlayer(p.getId() - 1).getHasLost()
 				&& keyListeners.get(p.getKeyCode()));
 	}
 
+	/*
+	First we check if a new card has been turned (to prevent multiple snaps on
+	the same card, and we verify that the instructions scene is not obscuring
+	the game play, then we check if any player has pressed snap, and if that
+	snap is valid.
+	 */
 	private void checkSnap() {
 		if (turned && view.getInstructions().getHidden())
 			for (PlayerView p: view.getPlayerViewList())
 				if (playerHasPressed(p)) {
+					// If last card is null, the turned card is the first card in the pile and can't be snap.
 					if(game.getLastCard() != null)
 						view.showLastCard(game.getLastCard().getValue());
 					view.showSnapResult(p.getId(), game.snap(game.getPlayer(p.getId()-1)));
@@ -165,10 +181,12 @@ public class GameViewController {
 			
 			@Override
 			public void handle(long now) {
+				//The H key shows/hides the help instructions scene
 				if (keyListeners.get(KeyCode.H)) {
 					view.moveInstructions();
 					keyListeners.put(KeyCode.H, false);
-				}			
+				}
+				//The space bar turns a new card
 				if ((view.getInstructions().getHidden()) && keyListeners.get(KeyCode.SPACE)){
 					turnCard();
 					displayPlayers();

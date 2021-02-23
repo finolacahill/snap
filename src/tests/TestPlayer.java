@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import javafx.scene.input.KeyCode;
 import model.Deck;
 import model.GameException;
 import model.Player;
@@ -66,20 +65,10 @@ class TestPlayer {
 		assertFalse(player1.getHasLost());
 		player1.hasNowLost();
 		assertTrue(player1.getHasLost());
+		player1.hasNowLost();
+		assertTrue(player1.getHasLost());
 	}
 	
-//	@Test
-//	void testGetKeys() {
-//		player1 = new Player(1,"test");
-//		assertTrue(player1.getKeyCode().equals(KeyCode.S));
-//		player1 = new Player(2,"test");
-//		assertTrue(player1.getKeyCode().equals(KeyCode.P));
-//		player1 = new Player(3,"test");
-//		assertTrue(player1.getKeyCode().equals(KeyCode.A));
-//		player1 = new Player(4,"test");
-//		assertTrue(player1.getKeyCode().equals(KeyCode.N));
-//	}
-//	
 	@Test
 	void testGetId() {
 		Player player = new Player(1,"test");

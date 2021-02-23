@@ -96,7 +96,10 @@ public class MenuView {
 		addMenuButton(exitButton = new SnapButton("GOODBYE"));
 
 	}
-	
+
+	/*
+	This is to facilitate instantiating the button listeners in the controller.
+	 */
 	private void createPairings() {
 		buttonScenePair = new HashMap<SnapButton, SnapSubScene>();
 		buttonScenePair.put(startButton, start);

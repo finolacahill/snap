@@ -76,7 +76,10 @@ public class SnapButton extends Button {
 		setPrefHeight(height);
 		setLayoutY(getLayoutY() - 4);
 	}
-	
+	/*
+	When button is clicked, show the pressed style and then released
+	style in quick succession. When mouse passes over button, show drop shadow.
+	 */
 	private void initializeButtonListenersStyle() {
 		
 		setOnMousePressed(event ->{

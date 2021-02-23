@@ -69,8 +69,7 @@ public class Game {
 		return (names != null && names.size() >= 2 && names.size() <= 4
 				&& decks >= 2 && decks <= 6);
 	}
-	
-	
+
 	private void assignCards() {
 		pile.shuffle();
 		ArrayList<Deck> split;
@@ -79,8 +78,13 @@ public class Game {
 			players.get(i).setDeck(split.get(i));
 		}
 	}
-	
+	/*
+	Finds whose turn it is next and a circular manner. If the next
+	player sequentially is already out, the function recurses and
+	finds the next next turn.
+	 */
 	private void setTurn() {
+		// if this was the last player, go back to the start
 		if (turn == numberOfPlayers - 1)
 			turn = 0;
 		else
@@ -120,7 +124,10 @@ public class Game {
 	public Player getWinner() {
 		return winner;
 	}
-	
+
+	/*
+	Save score to the scoreboard object.
+	 */
 	private void saveScore() {
 		String win = new String(" won against");
 		boolean first = true;
@@ -138,6 +145,11 @@ public class Game {
 		scoreCard.writeScore(win);
 	}
 
+	/*
+	Checks if each player hasn't already lost, then verifies if they have
+	lost in this current round. If only one player is left alive, the
+	game is over.
+	 */
 	private void checkGameOver() {
 		int alive = 0;
 		Player lastAlive = null;
@@ -171,8 +183,8 @@ public class Game {
 			pile.addCard(pile.getTopCard());
 			checkGameOver();
 			setTurn();
-		} catch (NullPointerException ex) {
-			throw new GameException("Can't turn, have cards been assigned?");
+		} catch (CardException ex) {
+			throw new GameException("Decks are empty. Can't turn.");
 		}
 	}
 	
@@ -210,7 +222,10 @@ public class Game {
 	public Card getLastCard() {
 		return pile.getLastCard();
 	}
-	
+
+	/*
+	Gives pile to the winning player P.
+	 */
 	private void givePile(Player p) {
 		pile.shuffle();
 		while(pile.getNumberOfCards() > 0)
@@ -218,7 +233,11 @@ public class Game {
 		pile.setLastCard(null);
 		pile.setTopCard(null);
 	}
-	
+
+	/*
+	Distributes pile to all players except the losing player skip
+	and any players who have already lost.
+	 */
 	private void distributePile(Player skip) {
 		while(pile.getNumberOfCards() > 0) {
 			for (int i = 0; i < numberOfPlayers && pile.getNumberOfCards() > 0; ++i) {
@@ -243,12 +262,10 @@ public class Game {
 		if (pile.getLastCard() != null) {
 			if (pile.isSnap()){
 				givePile(p);
-				System.out.println(p.getName() + " wins Snap and has cards: "+ p.getDeck().getNumberOfCards());
 				return true;
 			}
 		}
 		distributePile(p);
-		System.out.println(p.getName() + " loses Snap");
 		return false;
 	}
 	

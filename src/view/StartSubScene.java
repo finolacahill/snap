@@ -4,6 +4,10 @@ import java.util.ArrayList;
 
 import javafx.scene.layout.HBox;
 
+/**
+ * This class contains the visual elements for selecting player numbers and
+ * deck numbers, and also the button to launch the game play view.
+ */
 public class StartSubScene extends SnapSubScene {
 	private SnapButton playButton;
 	private ArrayList<SnapCheckBox> playerBoxes;
@@ -41,7 +45,10 @@ public class StartSubScene extends SnapSubScene {
 		this.getPane().getChildren().add(playButton);
 	}
 
-	protected HBox createQuantityPicker(int max, ArrayList<SnapCheckBox> boxes) {
+	/*
+	Creates a a horizontal box with a range of check boxes, to pick a numerical value.
+	 */
+	private HBox createQuantityPicker(int max, ArrayList<SnapCheckBox> boxes) {
 		HBox frame = new HBox();
 		frame.setSpacing(60);
 		for (int i = 2; i <= max; i++) {
@@ -51,19 +58,42 @@ public class StartSubScene extends SnapSubScene {
 		}
 		return frame;
 	}
-	
+
+	/**
+	 * Returns the SnapCheckBox objects necessary for selecting the number
+	 * of players.
+	 * @return
+	 * ArrayList of SnapCheckBox Objects
+	 */
 	public ArrayList<SnapCheckBox> getPlayerBoxes(){
 		return playerBoxes;
 	}
-	
+
+	/**
+	 * Returns the SnapCheckBox objects necessary for selecting the number
+	 * of decks.
+	 * @return
+	 * ArrayList of SnapCheckBox Objects
+	 */
 	public ArrayList<SnapCheckBox> getDeckBoxes(){
 		return deckBoxes;
 	}
-	
+
+	/**
+	 * Returns the play button for launching the game view
+	 * @return
+	 * play snap button
+	 */
 	public SnapButton getPlayButton() {
 		return playButton;
 	}
-	
+
+	/**
+	 * Returns the numerical value of the chosen check box for the
+	 * player picker. If no value is selected, returns -1.
+	 * @return
+	 * number of players selected
+	 */
 	public int getChosenDeck() {
 		for (SnapCheckBox b: deckBoxes) {
 			if (b.getIsChosen())
@@ -71,7 +101,13 @@ public class StartSubScene extends SnapSubScene {
 		}
 		return -1;
 	}
-	
+
+	/**
+	 * Returns the numerical value of the chosen check box for the
+	 * deck picker. If no value is selected, returns -1.
+	 * @return
+	 * number of decks selected
+	 */
 	public int getChosenPlayers() {
 		for (SnapCheckBox b: playerBoxes) {
 			if (b.getIsChosen())

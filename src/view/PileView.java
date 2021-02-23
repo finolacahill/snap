@@ -48,7 +48,6 @@ public class PileView {
 			pile.getChildren().remove(pileCount);
 		updatePileCount(numberOfCards);
 		pile.getChildren().add(pileCount);
-		
 		return pile;
 	}
 }

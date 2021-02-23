@@ -38,15 +38,14 @@ public class CardView {
 		return cardView;
 		
 	}
-	
+
+	// If compare is set to True, card must be positioned in left pile.
 	static private void positionCard(VBox card, boolean compare) {
-		if (!compare) {
-		card.setLayoutX(320);
-		card.setLayoutY(170);}
-		else {
+		if (!compare)
+			card.setLayoutX(320);
+		else
 			card.setLayoutX(130);
-			card.setLayoutY(170);
-		}
+		card.setLayoutY(170);
 	}
 		
-	}
+}

@@ -24,7 +24,7 @@ class TestsCard {
 	void testTooBigValue() {
 		try {
 			card = new Card(53);
-			fail("Can't be below 52.");
+			fail("Can't be aboce 52.");
 		} catch(CardException ex) {};
 	}
 	
@@ -46,6 +46,9 @@ class TestsCard {
 		assertTrue(card3.equals(card4));
 		assertFalse(card.equals(card3));
 		assertFalse(card2.equals(card3));
+		
+		String s = new String();
+		assertFalse(card.equals(s));
 	}
 	
 }

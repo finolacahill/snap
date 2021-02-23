@@ -52,6 +52,9 @@ public class PlayerView {
 		display.setLayoutY(corners.get(id-1)[1]);
 	}
 
+	/*
+	These are the corner coordinates associated with each player's display location.
+	 */
 	private void setCorners() {
 		corners = new ArrayList<int[]>();
 		corners.add(new int[] {20, 445});
@@ -67,8 +70,11 @@ public class PlayerView {
 		display.getChildren().add(label);
 	}
 
+	/*
+	Removes the label, updates it if the player has cards. If the player has
+	no cards left, display you have lost banner.
+	 */
 	private void updateDisplay(int numCards) {
-			
 		displayNumber = numCards;
 		if (display.getChildren().contains(label))
 			display.getChildren().remove(label);
@@ -94,7 +100,12 @@ public class PlayerView {
 			updateDisplay(numCards);
 		return display;
 	}
-	
+
+	/**
+	 * Returns the player view id, which is identical to the player model id.
+	 * @return
+	 * id
+	 */
 	public int getId() {
 		return id;
 	}
@@ -128,7 +139,10 @@ public class PlayerView {
 	public Text getTurn() {
 		return turn;
 	}
-	
+
+	/*
+	This is the keyboard key that the player may use to call snap.
+	 */
 	private void setKeyCode() {
 		if (id == 1)
 			keyCode = KeyCode.S;

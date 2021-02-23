@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
 import model.Card;
-import model.CardException;
 import model.Game;
 import model.GameException;
 import model.Player;
@@ -47,7 +46,6 @@ class TestGame {
 		}catch (GameException ex) {};
 		names.remove(1);
 		game = new Game(names, 2);
-		System.out.println(names);
 		assertEquals(game.getPlayers().size(), 4);
 		try {
 			game = new Game(names, 1);
@@ -69,32 +67,129 @@ class TestGame {
 	}
 
 	@Test
-	void testAssignCards() {
+	void testAssignCardsTwoPlayers() {
 		setGame(2,2);
 		assertEquals(game.getPlayer(0).getDeck().getNumberOfCards(), 52);
 		assertEquals(game.getPlayer(1).getDeck().getNumberOfCards(), 52);
 		
+		setGame(2,3);
+		assertEquals(game.getPlayer(0).getDeck().getNumberOfCards(), 78);
+		assertEquals(game.getPlayer(1).getDeck().getNumberOfCards(), 78);
+		
+		setGame(2,4);
+		assertEquals(game.getPlayer(0).getDeck().getNumberOfCards(), 104);
+		assertEquals(game.getPlayer(1).getDeck().getNumberOfCards(), 104);
+		
+		setGame(2,5);
+		assertEquals(game.getPlayer(0).getDeck().getNumberOfCards(), 130);
+		assertEquals(game.getPlayer(1).getDeck().getNumberOfCards(), 130);
+		
+		setGame(2,6);
+		assertEquals(game.getPlayer(0).getDeck().getNumberOfCards(), 156);
+		assertEquals(game.getPlayer(1).getDeck().getNumberOfCards(), 156);
+	}
+	
+	@Test
+	void testAsignCardsThreePlayers() {
 		setGame(3,2);
 		assertEquals(game.getPlayer(0).getDeck().getNumberOfCards(), 35);
 		assertEquals(game.getPlayer(1).getDeck().getNumberOfCards(), 35);
 		assertEquals(game.getPlayer(2).getDeck().getNumberOfCards(), 34);
+		
+		setGame(3,3);
+		assertEquals(game.getPlayer(0).getDeck().getNumberOfCards(), 52);
+		assertEquals(game.getPlayer(1).getDeck().getNumberOfCards(), 52);
+		assertEquals(game.getPlayer(2).getDeck().getNumberOfCards(), 52);
+		
+		setGame(3,4);
+		assertEquals(game.getPlayer(0).getDeck().getNumberOfCards(), 70);
+		assertEquals(game.getPlayer(1).getDeck().getNumberOfCards(), 69);
+		assertEquals(game.getPlayer(2).getDeck().getNumberOfCards(), 69);
+		
+		setGame(3,5);
+		assertEquals(game.getPlayer(0).getDeck().getNumberOfCards(), 87);
+		assertEquals(game.getPlayer(1).getDeck().getNumberOfCards(), 87);
+		assertEquals(game.getPlayer(2).getDeck().getNumberOfCards(), 86);
+		
+		setGame(3,6);
+		assertEquals(game.getPlayer(0).getDeck().getNumberOfCards(), 104);
+		assertEquals(game.getPlayer(1).getDeck().getNumberOfCards(), 104);
+		assertEquals(game.getPlayer(2).getDeck().getNumberOfCards(), 104);
+	}
+	
+	@Test
+	void testAssignCardsFourPlayers() {
 		
 		setGame(4,2);
 		assertEquals(game.getPlayer(0).getDeck().getNumberOfCards(), 26);
 		assertEquals(game.getPlayer(1).getDeck().getNumberOfCards(), 26);
 		assertEquals(game.getPlayer(2).getDeck().getNumberOfCards(), 26);
 		assertEquals(game.getPlayer(3).getDeck().getNumberOfCards(), 26);
+		
+		setGame(4,3);
+		assertEquals(game.getPlayer(0).getDeck().getNumberOfCards(), 39);
+		assertEquals(game.getPlayer(1).getDeck().getNumberOfCards(), 39);
+		assertEquals(game.getPlayer(2).getDeck().getNumberOfCards(), 39);
+		assertEquals(game.getPlayer(3).getDeck().getNumberOfCards(), 39);
+		
+		setGame(4,4);
+		assertEquals(game.getPlayer(0).getDeck().getNumberOfCards(), 52);
+		assertEquals(game.getPlayer(1).getDeck().getNumberOfCards(), 52);
+		assertEquals(game.getPlayer(2).getDeck().getNumberOfCards(), 52);
+		assertEquals(game.getPlayer(3).getDeck().getNumberOfCards(), 52);
+		
+		setGame(4,5);
+		assertEquals(game.getPlayer(0).getDeck().getNumberOfCards(), 65);
+		assertEquals(game.getPlayer(1).getDeck().getNumberOfCards(), 65);
+		assertEquals(game.getPlayer(2).getDeck().getNumberOfCards(), 65);
+		assertEquals(game.getPlayer(3).getDeck().getNumberOfCards(), 65);
+		
+		setGame(4,6);
+		assertEquals(game.getPlayer(0).getDeck().getNumberOfCards(), 78);
+		assertEquals(game.getPlayer(1).getDeck().getNumberOfCards(), 78);
+		assertEquals(game.getPlayer(2).getDeck().getNumberOfCards(), 78);
+		assertEquals(game.getPlayer(3).getDeck().getNumberOfCards(), 78);
 	}
 
 	@Test
-	void testTurnAssignment() {
+	void testTurnAssignmentTwoPlayers() {
 		setGame(2,2);
 		assertEquals(0, game.getTurn());
 		game.turn();
 		assertEquals(1, game.getTurn());
 		game.turn();
 		assertEquals(0, game.getTurn());
+		
+		setGame(2,3);
+		assertEquals(0, game.getTurn());
+		game.turn();
+		assertEquals(1, game.getTurn());
+		game.turn();
+		assertEquals(0, game.getTurn());
 
+		setGame(2,4);
+		assertEquals(0, game.getTurn());
+		game.turn();
+		assertEquals(1, game.getTurn());
+		game.turn();
+		assertEquals(0, game.getTurn());
+		
+		setGame(2,5);
+		assertEquals(0, game.getTurn());
+		game.turn();
+		assertEquals(1, game.getTurn());
+		game.turn();
+		assertEquals(0, game.getTurn());
+		
+		setGame(2,6);
+		assertEquals(0, game.getTurn());
+		game.turn();
+		assertEquals(1, game.getTurn());
+		game.turn();
+		assertEquals(0, game.getTurn());
+	}
+	@Test
+	void testTurnAssignmentThreePlayers() {
 		setGame(3,2);
 		assertEquals(0, game.getTurn());
 		game.turn();
@@ -104,7 +199,90 @@ class TestGame {
 		game.turn();
 		assertEquals(0, game.getTurn());
 		
+		setGame(3,3);
+		assertEquals(0, game.getTurn());
+		game.turn();
+		assertEquals(1, game.getTurn());
+		game.turn();
+		assertEquals(2, game.getTurn());
+		game.turn();
+		assertEquals(0, game.getTurn());
+		
+		setGame(3,4);
+		assertEquals(0, game.getTurn());
+		game.turn();
+		assertEquals(1, game.getTurn());
+		game.turn();
+		assertEquals(2, game.getTurn());
+		game.turn();
+		assertEquals(0, game.getTurn());
+		
+		setGame(3,5);
+		assertEquals(0, game.getTurn());
+		game.turn();
+		assertEquals(1, game.getTurn());
+		game.turn();
+		assertEquals(2, game.getTurn());
+		game.turn();
+		assertEquals(0, game.getTurn());
+		
+		setGame(3,6);
+		assertEquals(0, game.getTurn());
+		game.turn();
+		assertEquals(1, game.getTurn());
+		game.turn();
+		assertEquals(2, game.getTurn());
+		game.turn();
+		assertEquals(0, game.getTurn());
+	}
+	
+	@Test
+	void turnAssignmentFourPlayers() {
 		setGame(4,2);
+		assertEquals(0, game.getTurn());
+		game.turn();
+		assertEquals(1, game.getTurn());
+		game.turn();
+		assertEquals(2, game.getTurn());
+		game.turn();
+		assertEquals(3, game.getTurn());
+		game.turn();
+		assertEquals(0, game.getTurn());
+		
+		setGame(4,3);
+		assertEquals(0, game.getTurn());
+		game.turn();
+		assertEquals(1, game.getTurn());
+		game.turn();
+		assertEquals(2, game.getTurn());
+		game.turn();
+		assertEquals(3, game.getTurn());
+		game.turn();
+		assertEquals(0, game.getTurn());
+		
+		setGame(4,4);
+		assertEquals(0, game.getTurn());
+		game.turn();
+		assertEquals(1, game.getTurn());
+		game.turn();
+		assertEquals(2, game.getTurn());
+		game.turn();
+		assertEquals(3, game.getTurn());
+		game.turn();
+		assertEquals(0, game.getTurn());
+		
+		setGame(4,5);
+		assertEquals(0, game.getTurn());
+		game.turn();
+		assertEquals(1, game.getTurn());
+		game.turn();
+		assertEquals(2, game.getTurn());
+		game.turn();
+		assertEquals(3, game.getTurn());
+		game.turn();
+		assertEquals(0, game.getTurn());
+		
+		setGame(4,6);
 		assertEquals(0, game.getTurn());
 		game.turn();
 		assertEquals(1, game.getTurn());
@@ -118,7 +296,7 @@ class TestGame {
 
 	
 	@Test
-	void testTurnCard() {
+	void testTurnCardTwoPlayers() {
 		Card test;
 		setGame(2,2);
 		game.turn();
@@ -138,10 +316,91 @@ class TestGame {
 		try {
 			game.turn();
 			fail("empty hand!");
-		} catch (CardException ex) {};
+		} catch (GameException ex) {};
+		
+	}
+	
+	@Test
+	void testTurnCardThreePlayers() {
+		Card test;
+		setGame(3,3);
+		game.turn();
+		assertEquals(game.getPlayer(0).getDeck().getNumberOfCards(), 51);
+		assertEquals(game.getPlayer(1).getDeck().getNumberOfCards(), 52);
+		assertEquals(game.getPlayer(2).getDeck().getNumberOfCards(), 52);
+		test = game.getTopCard();
+		assertEquals(1, game.getPile().getNumberOfCards());
+		game.turn();
+		assertEquals(game.getPlayer(0).getDeck().getNumberOfCards(), 51);
+		assertEquals(game.getPlayer(1).getDeck().getNumberOfCards(), 51);
+		assertEquals(game.getPlayer(2).getDeck().getNumberOfCards(), 52);
+		assertEquals(test, game.getLastCard());
+		test = game.getTopCard();
+		game.turn();
+		assertEquals(game.getPlayer(0).getDeck().getNumberOfCards(), 51);
+		assertEquals(game.getPlayer(1).getDeck().getNumberOfCards(), 51);
+		assertEquals(game.getPlayer(2).getDeck().getNumberOfCards(), 51);
+		assertEquals(test, game.getLastCard());
+		assertTrue(test != game.getTopCard());
+		assertEquals(3, game.getPile().getNumberOfCards());
+		game.turn();
+		assertEquals(game.getPlayer(0).getDeck().getNumberOfCards(), 50);
+
+		while (game.getPlayer(1).getDeck().getNumberOfCards() > 0)
+				game.getPlayer(1).getDeck().popTopCard();
+		try {
+			game.turn();
+			fail("empty hand!");
+		} catch (GameException ex) {};
 		
 	}
 
+	@Test
+	void testTurnCardFourPlayers() {
+		Card test;
+		setGame(4,4);
+		game.turn();
+		assertEquals(game.getPlayer(0).getDeck().getNumberOfCards(), 51);
+		assertEquals(game.getPlayer(1).getDeck().getNumberOfCards(), 52);
+		assertEquals(game.getPlayer(2).getDeck().getNumberOfCards(), 52);
+		assertEquals(game.getPlayer(3).getDeck().getNumberOfCards(), 52);
+
+		test = game.getTopCard();
+		assertEquals(1, game.getPile().getNumberOfCards());
+		game.turn();
+		assertEquals(game.getPlayer(0).getDeck().getNumberOfCards(), 51);
+		assertEquals(game.getPlayer(1).getDeck().getNumberOfCards(), 51);
+		assertEquals(game.getPlayer(2).getDeck().getNumberOfCards(), 52);
+		assertEquals(game.getPlayer(3).getDeck().getNumberOfCards(), 52);
+
+		assertEquals(test, game.getLastCard());
+		test = game.getTopCard();
+		game.turn();
+		assertEquals(game.getPlayer(0).getDeck().getNumberOfCards(), 51);
+		assertEquals(game.getPlayer(1).getDeck().getNumberOfCards(), 51);
+		assertEquals(game.getPlayer(2).getDeck().getNumberOfCards(), 51);
+		assertEquals(game.getPlayer(3).getDeck().getNumberOfCards(), 52);
+		
+		game.turn();
+		assertEquals(game.getPlayer(0).getDeck().getNumberOfCards(), 51);
+		assertEquals(game.getPlayer(1).getDeck().getNumberOfCards(), 51);
+		assertEquals(game.getPlayer(2).getDeck().getNumberOfCards(), 51);
+		assertEquals(game.getPlayer(3).getDeck().getNumberOfCards(), 51);
+		test = game.getTopCard();
+		game.turn();
+		assertEquals(game.getPlayer(0).getDeck().getNumberOfCards(), 50);
+		assertEquals(test, game.getLastCard());
+		assertTrue(test != game.getTopCard());
+		assertEquals(5, game.getPile().getNumberOfCards());
+		
+		while (game.getPlayer(1).getDeck().getNumberOfCards() > 0)
+				game.getPlayer(1).getDeck().popTopCard();
+		try {
+			game.turn();
+			fail("empty hand!");
+		} catch (GameException ex) {};
+		
+	}
 	
 	@Test
 	void testBadSnap() {
