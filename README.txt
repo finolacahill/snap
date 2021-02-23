@@ -18,5 +18,6 @@ be run from Eclipse or any other IDE.
 In order to play the game, all you need is a keyboard! You can play with 
 between 2 and 4 players, each player will have their own assigned "snap" 
 key, and the spacebar is used to turn cards. The player who wins is the 
-last player with cards in their hand. See the help screen in the game for
-further game details.
+last player with cards in their hand. See the help screen in the game for further game details.
+
+For further details on the code, see the JavaDoc!
