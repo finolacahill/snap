@@ -1,3 +1,4 @@
+Snap is a multiplayer card game written in Java8 and JavaFX.
 In the src folder there is a Snap.jar, double click to play! Please note
 that if Snap.jar is moved from the src folder, it will not be able to
 find the graphic resources necessary for the best game experience.
